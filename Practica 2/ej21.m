@@ -24,7 +24,8 @@ smoothedGray1D_ver = imfilter(imGray, mask_ver);
 for i = 1:100
     smoothedGray1D_ver = imfilter(smoothedGray1D_ver, mask_ver);
 end
-figure, subplot(3,5,2),imshow(im, []), title('Original image'),... 
+figure
+subplot(3,5,2),imshow(im, []), title('Original image'),... 
 subplot(3,5,5),imshow(imGray), title('Gray image'),...
 subplot(3,5,6),imshow(resizedIm),title('Resized image'),... 
 subplot(3,5,7),imshow(uint8(smoothedImGray1D_hor)),title('Smoothed image'),...
@@ -35,7 +36,6 @@ subplot(3,5,12),imshow(uint8(smoothedGray1D_ver)),title('Vertical Mask'),...
 subplot(3,5,13),imhist(uint8(smoothedGray1D_ver)),title('Histogram vertical');
 
 %d, e)
-close all;
 
 im = imread('./images/clooney.jpg');
 h1 = [[1 1 1 1 1], [1, 1, 1, 1, 1]];
@@ -50,9 +50,9 @@ for i = 1:4
     imf3 = imfilter(imf3, h1);
 end
 
-figure;
-subplot(1,3,1), imshow(imf1), title('Small mask');
-subplot(1,3,2), imshow(imf2), title('Big mask');
+figure
+subplot(1,3,1), imshow(imf1), title('Small mask'),...
+subplot(1,3,2), imshow(imf2), title('Big mask'),...
 subplot(1,3,3), imshow(imf3), title('Small mask applied 4 times');
 
 end
