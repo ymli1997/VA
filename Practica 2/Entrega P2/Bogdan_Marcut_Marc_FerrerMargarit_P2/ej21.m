@@ -39,16 +39,14 @@ subplot(3,4,9),imhist(imGray), title('Histogram of Original im.'), ...
 subplot(3,4,10),imhist(resizedIm),title('Histogram of resized im.'),...
 subplot(3,4,11),imhist(uint8(smoothedImGray1D_ver)),title('Histogram of smoothed image');
 
-%%%d -- if we change the size of the mask, the smoothering will be stronger
-%%%but it will keep its uniformity because we are normalizing it
-%%%If we change the size of the filtering array, the smoothering will be
+%%%d -- If we change the size of the filtering array, the smoothering will be
 %%%more dispersed and it would not look as smooth
 file2='buffet.jpg';
 im=imread(file2);
 imGray2=rgb2gray(im);
 resizedIm=imresize(imGray2, 2);
 h_hor=[1 1 1 1 1]; % 1D mask defined
-h_hor2=[3 2 4 7 1]; % 1D mask defined
+h_hor2=[1 1]; % 1D mask defined
 h_hor3=[1 1 1]; % 1D mask defined
 h_hor=h_hor/sum(h_hor); % normalization
 smoothedImGray1D_hor=imfilter(double(imGray2),h_hor);
@@ -72,11 +70,13 @@ Mask = [[1 1 1 1 1]; [1 1 1 1 1]; [1 1 1 1 1]; [1 1 1 1 1]; [1 1 1 1 1];];
 Mask = Mask/sum(sum(Mask));
 smoothedImGray2D=imfilter(double(imGray), Mask);
 figure, imshow(smoothedImGray2D, []), title('2D Mask'),...
+    
 
-%%%f
-smoothed=imfilter(double(file),h_hor);
+%%%f -- we can apply a filter to a colored image but we have to convert it
+%%%to uint8 first. We cannot visualize the histogram
+smoothed=imfilter(uint8(im),h_hor);
 figure, imshow(smoothed, []), title('Color Image');
-figure, imhist(uint8(smoothed)), title('Histogram of Colored Smoothed');
+%figure, imhist(uint8(smoothed)), title('Histogram of Colored Smoothed');
 
 
 %%%g -- a this smoothering is more horizontal oriented and distorts the
@@ -96,11 +96,10 @@ figure, imshow(smoothedB, []), title('g - b');
 file2='buffet.jpg';
 im=imread(file2);
 imGray2=rgb2gray(im);
-h1 =[1 1 2 6 1];
-h1 = h1/sum(h1);
+h1 = [1 1 1 1 1];
 smoothedNotNormalized=imfilter(double(imGray2),h1);
-for i = 1:10
-    smoothedNotNormalized=imfilter(double(smoothedNotNormalized),h_hor);
+for i = 1:100
+    smoothedNotNormalized=imfilter(double(smoothedNotNormalized),h1);
 end
 figure, imshow(smoothedNotNormalized, []), title('h');
 
