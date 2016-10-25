@@ -5,6 +5,7 @@ imoriginal = imread('logo.png');
 im = rgb2gray(imoriginal);
 e = edge(im);
 %b
+%We apply the different filters
 Sobel = fspecial('sobel');
 sobelf = imfilter(im,Sobel);
 canny = edge(im,'canny',0.2,1);
@@ -19,6 +20,7 @@ subplot(2,3,3),imshow(canny),title('Canny'),...
 subplot(2,3,4),imshow(prewitt),title('Prewitt'),...
 subplot(2,3,5),imshow(laplacian),title('Laplacian'),...
 %c)
+%We do the same with another image
 im = imread('monroe.jpg');
 e = edge(im);
 Sobel = fspecial('sobel');
@@ -35,6 +37,7 @@ subplot(2,3,3),imshow(canny),title('Canny'),...
 subplot(2,3,4),imshow(prewitt),title('Prewitt'),...
 subplot(2,3,5),imshow(laplacian),title('Laplacian'),...
 %d)
+%We use the differents types of sobel on the image
 imoriginal = imread('logo.png');
 im = rgb2gray(imoriginal);
 sobeledge = edge(im,'sobel',0);
