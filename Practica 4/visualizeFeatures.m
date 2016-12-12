@@ -1,10 +1,13 @@
-function [  ] = visualizeFeatures(directory1,directory2,directory3)
-    descriptores=getClassFeatures(directory1,directory2,directory3);
-    tipo={'g*','r+','bo'};
-    for i=1:size(descriptores,3)
-        plot(descriptores(:,25,i),tipo{i},'MarkerSize',5);
+function [  ] = visualizeFeatures( )
+    dir = {'texturesimages/buildings/','texturesimages/forest/','texturesimages/sunset/'};
+    extension = '*.jpg';
+    func = @getFeatures;
+    for i = 1:3;
+        descriptor = getClassFeatures(dir{i}, extension, func);
+        tipo={'g*','r+','bo'};
+        plot(descriptor(:,41), tipo{i}, 'MarkerSize', 5);
         hold on;
-        plot(descriptores(:,41,i),tipo{i},'MarkerSize',5);
+        plot(descriptor(:,25), tipo{i}, 'MarkerSize', 5);
         hold on;
     end
 end

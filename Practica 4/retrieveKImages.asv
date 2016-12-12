@@ -1,0 +1,42 @@
+function [ ] = retrieveKImages(directory1,directory2,directory3,n)
+    close all;
+    if ~exist('n','var'),
+        n=9;
+    end
+    
+    imageDir = 'texturesimages/forest/forest_14.jpg';
+    directorios = {'texturesimages/buildings/','texturesimages/forest/','texturesimages/sunset/'};
+    extension = '*.jpg';
+    func = @getFeatures;
+    
+    for i=1:3;
+        descriptor = getClassFeatures(directorios{i},extension,func);
+        imagenes = cell(size(descriptor,1),1); 
+        files = dir(fullfile(directorios{i},'*.jpg')); 
+
+        newChar = zeros(size(descriptor(1)));
+        for j = 1:size(descriptor,1);
+            im = imread((fullfile(directorios{i}, files(j).name)));
+            
+            imagenes{j,1} = im;
+            newChar(j,1) = mean(mean(im(:,:,1)));
+            newChar(j,2) = mean(mean(im(:,:,2)));
+            newChar(j,3) = mean(mean(im(:,:,3)));
+        end
+        
+        descriptor = [descriptor newChar];
+        im = imread(imageDir);
+        
+        char = [getFeatures(imageDir) mean(mean(im(:,:,1))) mean(mean(im(:,:,2))) mean(mean(im(:,:,3)))];
+        [numero, distancia] = knnsearch(descriptor, char , 'K', n+1);
+        numero(1)
+
+        figure, subplot(1,n+1,1), imshow(im);
+        title('Image Query');
+        for k=2:n+1
+            subplot(1,n+1,k);
+            imshow(imagenes{numero(k)});
+        end
+    end
+    
+end
