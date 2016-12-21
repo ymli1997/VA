@@ -3,7 +3,7 @@ function [ outClass, X, Y, selFeatures, error, predErr ] = haarFeatureDemo(numFe
 %   Detailed explanation goes here
     outSize=[30,30];
     
-    close all;    
+    %close all;    
     % Get dataset
     if ~exist('numFeatures','var'),
         numFeatures=3;

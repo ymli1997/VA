@@ -1,15 +1,18 @@
-function [totalerr] = ex52(  )
-close all;
-totalerr = [];
-[outClass, X, Y, selFeatures, error, predErr] = haarFeatureDemo(2);
-totalerr = [totalerr error(end)];
-for i=1:2
-    [outClass, X2, Y2, selFeatures, error, predErr] = haarFeatureDemo(2,X,Y,outClass);
-    totalerr = [totalerr error(end)];
+function ej52()
+%A
+%train(3,2);
+%B
+train(1,2);
+
 end
-figure;
-hold;
-plot(totalerr);
-title('Error in cascade');
+function [ output_args ] = train( numLevel, numFeatures )
+error = [];
+    [outClass, X, Y] = haarFeatureDemo(numFeatures);
+    error = [error sum(Y~=outClass)/length(Y)];
+    for i=1:numLevel
+        outClass = haarFeatureDemo(numFeatures, X, Y, outClass);
+        error = [error sum(Y~=outClass)/length(Y)];
+    end
+    error
 end
 
