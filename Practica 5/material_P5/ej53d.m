@@ -1,4 +1,5 @@
 function [] = ej53d
+addpath('ViolaJones','ViolaJones/SubFunctions');
 close all;
 I1 = imread('images/f1.jpg');
 I2 = imread('images/f2.jpg');
@@ -15,7 +16,7 @@ subplot(5,2,5); showResult(I5);
 end
 function showResult(I)
 ConvertHaarcasadeXMLOpenCV('ViolaJones/HaarCascades/haarcascade_frontalface_alt.xml');
-Options.Resize=false;
+%Options.Resize=false;
 FilenameHaarcasade = 'ViolaJones/HaarCascades/haarcascade_frontalface_alt.mat';
 Objects=ObjectDetection(I,FilenameHaarcasade);
 ShowDetectionResult(I,Objects);
