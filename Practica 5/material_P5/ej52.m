@@ -1,18 +1,21 @@
 function ej52()
 %A
-%train(3,2);
+train(3,2);
 %B
-train(1,2);
+train(1,3);
 
 end
 function train( numLevel, numFeatures )
-error = [];
-    [outClass, X, Y] = haarFeatureDemo(numFeatures);
-    error = [error sum(Y~=outClass)/length(Y)];
-    for i=2:numLevel
-        outClass = haarFeatureDemo(numFeatures, X, Y, outClass);
-        error = [error sum(Y~=outClass)/length(Y)];
+close all;
+totalerr = [];
+[outClass, X, Y, selFeatures, error, predErr] = haarFeatureDemo(numFeatures);
+totalerr = [totalerr error(end)];
+    for i=1:numLevel,
+        [outClass, X2, Y2, selFeatures, error, predErr] = haarFeatureDemo(numFeatures,X,Y,outClass);
+        totalerr = [totalerr error(end)];
     end
-plot(error);
+figure;
+hold;
+plot(totalerr);
+title('Error in cascade');
 end
-
