@@ -3,5 +3,6 @@
 % Ejercicio 2.
 % Apartado 1
 img = imread('depth.png');
+size(img)
 visualizaImHist(img);
 % Apartado 2
